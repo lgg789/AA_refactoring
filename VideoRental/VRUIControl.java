@@ -68,8 +68,8 @@ public class VRUIControl {
     }
 
     protected void init() {
-        Customer james = new Customer("James")
-        addCustomer(new Customer("James"));
+        Customer james = new Customer("James");
+        addCustomer(james);
         addCustomer(new Customer("Brown"));
 
         Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;

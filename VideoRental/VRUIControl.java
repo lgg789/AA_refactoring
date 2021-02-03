@@ -9,8 +9,7 @@ public class VRUIControl {
     List<Video> videos = new ArrayList<Video>();
 
     public void clearRentals() {
-        System.out.println("Enter customer name: ") ;
-        String customerName = this.scanner.next() ;
+        String customerName = inputCustomerName();
 
         Customer foundCustomer = null ;
         for ( Customer customer: this.customers) {
@@ -36,17 +35,8 @@ public class VRUIControl {
     }
 
     public void returnVideo() {
-        System.out.println("Enter customer name: ") ;
-        String customerName = this.scanner.next() ;
-
-        Customer foundCustomer = null ;
-        for ( Customer customer: this.customers) {
-            if ( customer.getName().equals(customerName)) {
-                foundCustomer = customer ;
-                break ;
-            }
-        }
-        if ( foundCustomer == null ) return ;
+        Customer foundCustomer = getCustomer();
+        if (foundCustomer == null) return;
 
         System.out.println("Enter video title to return: ") ;
         String videoTitle = this.scanner.next() ;
@@ -102,8 +92,7 @@ public class VRUIControl {
     }
 
     public void getCustomerReport() {
-        System.out.println("Enter customer name: ") ;
-        String customerName = this.scanner.next() ;
+        String customerName = inputCustomerName();
 
         Customer foundCustomer = null ;
         for ( Customer customer: this.customers) {
@@ -122,18 +111,8 @@ public class VRUIControl {
     }
 
     public void rentVideo() {
-        System.out.println("Enter customer name: ") ;
-        String customerName = this.scanner.next() ;
-
-        Customer foundCustomer = null ;
-        for ( Customer customer: this.customers) {
-            if ( customer.getName().equals(customerName)) {
-                foundCustomer = customer ;
-                break ;
-            }
-        }
-
-        if ( foundCustomer == null ) return ;
+        Customer foundCustomer = getCustomer();
+        if (foundCustomer == null) return;
 
         System.out.println("Enter video title to rent: ") ;
         String videoTitle = this.scanner.next() ;
@@ -158,8 +137,7 @@ public class VRUIControl {
 
     public void register(String object) {
         if ( object.equals("customer") ) {
-            System.out.println("Enter customer name: ") ;
-            String name = this.scanner.next();
+            String name = inputCustomerName();
             Customer customer = new Customer(name) ;
             this.customers.add(customer) ;
         }
@@ -177,6 +155,25 @@ public class VRUIControl {
             Video video = new Video(title, videoType, priceCode, registeredDate) ;
             this.videos.add(video) ;
         }
+    }
+
+    private String inputCustomerName() {
+        System.out.println("Enter customer name: ") ;
+        return this.scanner.next();
+    }
+
+    private Customer getCustomer() {
+        String customerName = inputCustomerName();
+
+        Customer foundCustomer = null ;
+        for ( Customer customer: this.customers) {
+            if ( customer.getName().equals(customerName)) {
+                foundCustomer = customer ;
+                break ;
+            }
+        }
+        if ( foundCustomer == null ) return null;
+        return foundCustomer;
     }
 
     public int showCommand() {

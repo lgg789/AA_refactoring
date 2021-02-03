@@ -41,8 +41,8 @@ public class VRUIControl {
             System.out.println("Name: " + foundCustomer.getName() +
                     "\tRentals: " + foundCustomer.getRentals().size()) ;
             for ( Rental rental: foundCustomer.getRentals() ) {
-                System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
-                System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
+                System.out.print("\tTitle: " + rental.getTitle() + " ") ;
+                System.out.print("\tPrice Code: " + rental.getPriceCode()) ;
             }
 
             List<Rental> rentals = new ArrayList<Rental>() ;
@@ -59,26 +59,25 @@ public class VRUIControl {
 
         List<Rental> customerRentals = foundCustomer.getRentals() ;
         for ( Rental rental: customerRentals ) {
-            if ( rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented() ) {
+            if ( rental.getTitle().equals(videoTitle) && rental.isRented() ) {
                 rental.returnVideo();
-                rental.getVideo().setRented(false);
+                rental.setRented(false);
                 break ;
             }
         }
     }
 
     protected void init() {
-        Customer james = new Customer("James")
+        Customer james = new Customer("James");
         addCustomer(new Customer("James"));
         addCustomer(new Customer("Brown"));
 
-        Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;
-        Video v2 = new Video("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
+        Video v1 = new CD("v1", Video.CD, Video.REGULAR, new Date()) ;
+        Video v2 = new DVD("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
 
         addVideo(v1) ;
         addVideo(v2) ;
 
-        // @tsshin: Video/Rental class 정리 후 변경 필요
         james.addRental(new Rental(v1)) ;
         james.addRental(new Rental(v2)) ;
     }
@@ -98,8 +97,8 @@ public class VRUIControl {
             System.out.println("Name: " + customer.getName() +
                     "\tRentals: " + customer.getRentals().size()) ;
             for ( Rental rental: customer.getRentals() ) {
-                System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
-                System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
+                System.out.print("\tTitle: " + rental.getTitle() + " ") ;
+                System.out.print("\tPrice Code: " + rental.getPriceCode()) ;
             }
         }
         System.out.println("End of list");

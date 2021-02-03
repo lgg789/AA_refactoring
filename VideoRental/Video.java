@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Video{
+public abstract class Video{
 	
 	private int videoType;
 	public static final int VHS = 1;
@@ -15,10 +15,7 @@ public class Video{
 	protected Date registeredDate;
 	private boolean rented;
 	
-	public int getLateReturnPointPenalty()
-	{
-		return 0;
-	}
+	public abstract int getLateReturnPointPenalty();
 
 	public int getPriceCode() {
 		return priceCode;

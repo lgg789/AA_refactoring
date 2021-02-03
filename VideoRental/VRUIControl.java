@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class VRUIControl {
+	RentalItemFactory factory = new RentalItemFactory();
     static Scanner scanner = new Scanner(System.in) ;
     List<Customer> customers = new ArrayList<Customer>();
     List<Video> videos = new ArrayList<Video>();
@@ -155,7 +156,7 @@ public class VRUIControl {
             System.out.println("Enter price code( 1 for Regular, 2 for New Release ):") ;
             int priceCode = this.scanner.nextInt();
 
-            addVideo(new Video(title, videoType, priceCode, new Date()));
+            addVideo(factory.createVideo(title, videoType, priceCode));
         }
     }
 

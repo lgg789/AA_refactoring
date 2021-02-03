@@ -92,8 +92,8 @@ public class VRUI {
 		customers.add(james) ;
 		customers.add(brown) ;
 		
-		Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;
-		Video v2 = new Video("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
+		Video v1 = new CD("v1", Video.CD, RentalItem.REGULAR, new Date()) ;
+		Video v2 = new DVD("v2", Video.DVD, RentalItem.NEW_RELEASE, new Date()) ;
 		videos.add(v1) ;
 		videos.add(v2) ;
 		
@@ -107,7 +107,7 @@ public class VRUI {
 	public void listVideos() {
 		System.out.println("List of videos");
 		
-		for ( Video video: videos ) {
+		for ( RentalItem video: videos ) {
 			System.out.println("Price code: " + video.getPriceCode() +"\tTitle: " + video.getTitle()) ;
 		}
 		System.out.println("End of list");

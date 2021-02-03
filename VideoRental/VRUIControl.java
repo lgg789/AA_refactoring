@@ -8,6 +8,22 @@ public class VRUIControl {
     List<Customer> customers = new ArrayList<Customer>();
     List<Video> videos = new ArrayList<Video>();
 
+    public void addCustomer(Customer c) {
+        customers.add(c);
+    }
+
+    public void removeCustomer(Customer c) {
+        customers.remove(c);
+    }
+
+    public void addVideo(Video c) {
+        videos.add(c);
+    }
+
+    public void removeVideo(Video c) {
+        videos.remove(c);
+    }
+
     public void clearRentals() {
         String customerName = inputCustomerName();
 
@@ -25,8 +41,8 @@ public class VRUIControl {
             System.out.println("Name: " + foundCustomer.getName() +
                     "\tRentals: " + foundCustomer.getRentals().size()) ;
             for ( Rental rental: foundCustomer.getRentals() ) {
-                System.out.print("\tTitle: " + rental.getTitle() + " ") ;
-                System.out.print("\tPrice Code: " + rental.getPriceCode()) ;
+                System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
+                System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
             }
 
             List<Rental> rentals = new ArrayList<Rental>() ;
@@ -43,30 +59,28 @@ public class VRUIControl {
 
         List<Rental> customerRentals = foundCustomer.getRentals() ;
         for ( Rental rental: customerRentals ) {
-            if ( rental.getTitle().equals(videoTitle) && rental.isRented() ) {
+            if ( rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented() ) {
                 rental.returnVideo();
-                rental.setRented(false);
+                rental.getVideo().setRented(false);
                 break ;
             }
         }
     }
 
     protected void init() {
-        Customer james = new Customer("James") ;
-        Customer brown = new Customer("Brown") ;
-        this.customers.add(james) ;
-        this.customers.add(brown) ;
+        Customer james = new Customer("James")
+        addCustomer(new Customer("James"));
+        addCustomer(new Customer("Brown"));
 
-        Video v1 = new CD("v1", Video.CD, Video.REGULAR, new Date()) ;
-        Video v2 = new DVD("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
-        this.videos.add(v1) ;
-        this.videos.add(v2) ;
+        Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;
+        Video v2 = new Video("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
 
-        Rental r1 = new Rental(v1) ;
-        Rental r2 = new Rental(v2) ;
+        addVideo(v1) ;
+        addVideo(v2) ;
 
-        james.addRental(r1) ;
-        james.addRental(r2) ;
+        // @tsshin: Video/Rental class 정리 후 변경 필요
+        james.addRental(new Rental(v1)) ;
+        james.addRental(new Rental(v2)) ;
     }
 
     public void listVideos() {
@@ -84,23 +98,15 @@ public class VRUIControl {
             System.out.println("Name: " + customer.getName() +
                     "\tRentals: " + customer.getRentals().size()) ;
             for ( Rental rental: customer.getRentals() ) {
-                System.out.print("\tTitle: " + rental.getTitle() + " ") ;
-                System.out.print("\tPrice Code: " + rental.getPriceCode()) ;
+                System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
+                System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
             }
         }
         System.out.println("End of list");
     }
 
     public void getCustomerReport() {
-        String customerName = inputCustomerName();
-
-        Customer foundCustomer = null ;
-        for ( Customer customer: this.customers) {
-            if ( customer.getName().equals(customerName)) {
-                foundCustomer = customer ;
-                break ;
-            }
-        }
+        Customer foundCustomer = getCustomer();
 
         if ( foundCustomer == null ) {
             System.out.println("No customer found") ;
@@ -138,8 +144,7 @@ public class VRUIControl {
     public void register(String object) {
         if ( object.equals("customer") ) {
             String name = inputCustomerName();
-            Customer customer = new Customer(name) ;
-            this.customers.add(customer) ;
+            addCustomer(new Customer(name));
         }
         else {
             System.out.println("Enter video title to register: ") ;
@@ -151,22 +156,7 @@ public class VRUIControl {
             System.out.println("Enter price code( 1 for Regular, 2 for New Release ):") ;
             int priceCode = this.scanner.nextInt();
 
-            Date registeredDate = new Date();            
-            Video video = null;
-            
-            switch(videoType)
-            {
-            case Video.CD:
-            	video = new CD(title, videoType, priceCode, registeredDate) ;
-            	break;
-            case Video.DVD:
-            	video = new DVD(title, videoType, priceCode, registeredDate) ;
-            	break;
-            case Video.VHS:
-            	video = new VHS(title, videoType, priceCode, registeredDate) ;
-            	break;                       
-            }                       
-            this.videos.add(video) ;
+            addVideo(new Video(title, videoType, priceCode, new Date()));
         }
     }
 

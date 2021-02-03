@@ -2,8 +2,9 @@ import java.util.Date;
 
 public class VHS extends Video{
 
-	public VHS(String title, int videoType, int priceCode, Date registeredDate) {
-		super(title, videoType, priceCode, registeredDate);
+	public VHS(String title, int priceCode, Date registeredDate) {
+		super(title, priceCode, registeredDate);
+		setLimit(5);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -12,4 +13,5 @@ public class VHS extends Video{
 		// TODO Auto-generated method stub
 		return 1;
 	}
+
 }

@@ -20,6 +20,22 @@ public class VRUIControl {
         videos.add(c);
     }
 
+    public void addVideo(String title, int type, int priceCode, Date date) {
+        switch (type) {
+            case 1:
+                addVideo(new VHS(title, priceCode, date));
+                break;
+            case 2:
+                addVideo(new CD(title, priceCode, date));
+                break;
+            case 3:
+                addVideo(new DVD(title, priceCode, date));
+                break;
+            default:
+                break;
+        }
+    }
+
     public void removeVideo(Video c) {
         videos.remove(c);
     }
@@ -67,13 +83,13 @@ public class VRUIControl {
         }
     }
 
-    protected void init() {
+    public void init() {
         Customer james = new Customer("James");
         addCustomer(james);
         addCustomer(new Customer("Brown"));
 
-        Video v1 = new CD("v1", Video.CD, Video.REGULAR, new Date()) ;
-        Video v2 = new DVD("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
+        Video v1 = new CD("v1", Video.REGULAR, new Date()) ;
+        Video v2 = new DVD("v2", Video.NEW_RELEASE, new Date()) ;
 
         addVideo(v1) ;
         addVideo(v2) ;
@@ -151,11 +167,13 @@ public class VRUIControl {
 
             System.out.println("Enter video type( 1 for VHD, 2 for CD, 3 for DVD ):") ;
             int videoType = this.scanner.nextInt();
+            if (videoType != 1 && videoType != 2 && videoType != 3)
+                return;
 
             System.out.println("Enter price code( 1 for Regular, 2 for New Release ):") ;
             int priceCode = this.scanner.nextInt();
 
-            addVideo(new Video(title, videoType, priceCode, new Date()));
+            addVideo(title, videoType, priceCode, new Date());
         }
     }
 

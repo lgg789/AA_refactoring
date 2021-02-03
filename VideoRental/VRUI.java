@@ -2,6 +2,9 @@
 public class VRUI {
 	private static VRUIControl ctrl = new VRUIControl();
 	public static void main(String[] args) {
+		//for testing
+		ctrl.init();
+
 		boolean quit = false ;
 		while ( ! quit ) {
 			int command = ctrl.showCommand() ;

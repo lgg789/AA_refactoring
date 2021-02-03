@@ -9,8 +9,7 @@ public class VRUIControl {
     List<Video> videos = new ArrayList<Video>();
 
     public void clearRentals() {
-        System.out.println("Enter customer name: ") ;
-        String customerName = this.scanner.next() ;
+        String customerName = getCustomerName();
 
         Customer foundCustomer = null ;
         for ( Customer customer: this.customers) {
@@ -35,9 +34,13 @@ public class VRUIControl {
         }
     }
 
-    public void returnVideo() {
+    private String getCustomerName() {
         System.out.println("Enter customer name: ") ;
-        String customerName = this.scanner.next() ;
+        return this.scanner.next();
+    }
+
+    public void returnVideo() {
+        String customerName = getCustomerName();
 
         Customer foundCustomer = null ;
         for ( Customer customer: this.customers) {
@@ -102,8 +105,7 @@ public class VRUIControl {
     }
 
     public void getCustomerReport() {
-        System.out.println("Enter customer name: ") ;
-        String customerName = this.scanner.next() ;
+        String customerName = getCustomerName();
 
         Customer foundCustomer = null ;
         for ( Customer customer: this.customers) {
@@ -122,8 +124,7 @@ public class VRUIControl {
     }
 
     public void rentVideo() {
-        System.out.println("Enter customer name: ") ;
-        String customerName = this.scanner.next() ;
+        String customerName = getCustomerName();
 
         Customer foundCustomer = null ;
         for ( Customer customer: this.customers) {
@@ -158,8 +159,7 @@ public class VRUIControl {
 
     public void register(String object) {
         if ( object.equals("customer") ) {
-            System.out.println("Enter customer name: ") ;
-            String name = this.scanner.next();
+            String name = getCustomerName();
             Customer customer = new Customer(name) ;
             this.customers.add(customer) ;
         }

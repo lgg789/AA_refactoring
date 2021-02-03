@@ -5,7 +5,7 @@ public class Rental {
 	private Video video ;
 	private int status ; // 0 for Rented, 1 for Returned
 	private Date rentDate ;
-	private Date returnDate ;
+	private Date returnDate;
 	private String rentalInfo ;
 	private double charge;
 	private int point;
@@ -14,14 +14,7 @@ public class Rental {
 		this.video = video ;
 		status = 0 ;
 		rentDate = new Date() ;
-	}
-	
-	public Video getVideo() {
-		return video;
-	}
-
-	public void setVideo(Video video) {
-		this.video = video;
+		returnDate = null;
 	}
 
 	public int getStatus() {
@@ -29,9 +22,9 @@ public class Rental {
 	}
 
 	public void returnVideo() {
-		if ( status == 1 ) {
-			this.status = 1;
-			returnDate = new Date() ;
+		if ( status == 0 ) {
+			status = 1;
+			returnDate = new Date();
 		}
 	}
 	public Date getRentDate() {
@@ -43,7 +36,7 @@ public class Rental {
 	}
 	
 	public Date getReturnDate() {
-		return returnDate;
+		return returnDate;		
 	}
 
 	public void setReturnDate(Date returnDate) {
@@ -81,7 +74,7 @@ public class Rental {
 		int tempPoint = 0 ;
 		int daysRented = getDaysRented();
 
-		switch (getVideo().getPriceCode()) {
+		switch (video.getPriceCode()) {
 		case Video.REGULAR:
 			tempCharge += 2;
 			if (daysRented > 2)
@@ -94,13 +87,13 @@ public class Rental {
 
 		tempPoint++;
 		
-		if ((getVideo().getPriceCode() == Video.NEW_RELEASE) )
+		if ((video.getPriceCode() == Video.NEW_RELEASE) )
 			tempPoint++;
 		
 		if ( daysRented > getDaysRentedLimit() )
-			tempPoint -= Math.min(tempPoint, getVideo().getLateReturnPointPenalty()) ;
+			tempPoint -= Math.min(tempPoint, video.getLateReturnPointPenalty()) ;
 		
-		String result = "\t" + getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + tempCharge
+		String result = "\t" + video.getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + tempCharge
 				+ "\tPoint: " + tempPoint + "\n";
 		
 		setRentalInfo(result);
@@ -127,4 +120,20 @@ public class Rental {
 	public void setPoint(int point) {
 		this.point = point;
 	}
+	
+	public String getTitle() {
+		return video.getTitle();
+	}
+	
+	public int getPriceCode() {
+		return video.getPriceCode();
+	}
+		
+	public boolean isRented() {
+		return video.isRented();
+	}
+
+	public void setRented(boolean rented) {
+		video.setRented(rented);
+	}		
 }
